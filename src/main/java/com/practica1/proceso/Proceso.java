@@ -25,15 +25,16 @@ public class Proceso {
                 this.token = token();
                 if (esLetra(this.token.charAt(0))) {
                     verificadorID(this.token);
-                }else if (esNumero(this.token.charAt(0))) {
-                    
                 }
- 
-                
+                if (esNumero(this.token.charAt(0)) && !unicoPunto(this.token)) {
+                    verificadorNumero(this.token);
+                }
+                if (esNumero(this.token.charAt(0)) && unicoPunto(this.token)) {
+                    verificadorDecimal(this.token);
+                }
                 /*else {
                     enlistar(token, Identificador.ERROR);
                 }*/
-
             } while (temporal != (cadena.getText().length() - 1));
         } catch (Exception e) {
         }
@@ -60,18 +61,6 @@ public class Proceso {
         return token;
     }
 
-    public boolean esIdentificador(String token) {
-
-        if (Character.isLetter(token.charAt(0))) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
-    
-    
-
     public void verificadorID(String token) {
         String aux = String.valueOf((token.charAt(0)));
         for (int i = 1; i < token.length(); i++) {
@@ -88,9 +77,52 @@ public class Proceso {
             enlistar(token, Identificador.ERROR);
         }
     }
-    
-    public void verificadorNumero(String token){
-        
+
+    public void verificadorNumero(String token) {
+        String aux = String.valueOf((token.charAt(0)));
+        for (int i = 1; i < token.length(); i++) {
+            if (esNumero(token.charAt(i))) {
+                aux = aux + String.valueOf((token.charAt(i)));
+            }
+            if (token.equals(aux)) {
+                enlistar(token, Identificador.ENTERO);
+            } else {
+                enlistar(token, Identificador.ERROR);
+            }
+
+        }
+    }
+
+    public void verificadorDecimal(String token) {
+        String aux = String.valueOf((token.charAt(0)));
+        for (int i = 1; i < token.length(); i++) {
+            if (Character.compare(cadena.getText().charAt(i), (Identificador.PUNTO.getForma().charAt(0))) == 0) {
+                aux = aux + String.valueOf((token.charAt(i)));
+            }
+            if (esNumero(token.charAt(i))) {
+                aux = aux + String.valueOf((token.charAt(i)));
+            }
+            if (token.equals(aux)) {
+                enlistar(token, Identificador.DECIMAL);
+            } else {
+                enlistar(token, Identificador.ERROR);
+            }
+
+        }
+    }
+
+    public boolean unicoPunto(String token) {
+        int contador = 0;
+        for (int i = 1; i < token.length(); i++) {
+            if (Character.compare(cadena.getText().charAt(i), (Identificador.PUNTO.getForma().charAt(0))) == 0) {
+                contador++;
+            }
+        }
+        if (contador == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void enlistar(String token, Identificador valor) {

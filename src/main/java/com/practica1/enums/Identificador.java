@@ -10,12 +10,13 @@ public enum Identificador {
     ENTERO("Entero"),
     DECIMAL("Decimal"),
     CORCHETES("Caracter '['  ']'"),
-    LLAVES("simbo '{'  '}'"),
+    LLAVES("simbolo '{''}'"),
     PUNTO_COMA("Simbolo ';'"),
     COMA("Simbolo ','"),
     ERROR("Error"),
     SALTO("\n"),
-    ESPACIO(" ");
+    ESPACIO(" "),
+    PUNTO(".");
 
     public String getForma() {
         return forma;
