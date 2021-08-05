@@ -15,16 +15,25 @@ public class Proceso {
     private int temporal = 0;
     private JTextArea areaLista;
 
-    public Proceso(JTextArea cadena,JTextArea areaLista) {
+    public Proceso(JTextArea cadena, JTextArea areaLista) {
         this.cadena = cadena;
         this.areaLista = areaLista;
     }
 
-    public void Identificar() {
-        this.token = token();
-        if (esIdentificador(token)) {
+    public void identificar() {
+        try {
+            do {
+                this.token = token();
+                if (esIdentificador(token)) {
+                    verificadorID(token);
+                } else {
+                    enlistar(token, Identificador.ERROR);
+                }
 
+            } while (temporal != (cadena.getText().length() - 1));
+        } catch (Exception e) {
         }
+
     }
 
     public String token() {
@@ -42,6 +51,7 @@ public class Proceso {
     }
 
     public boolean esIdentificador(String token) {
+
         if (Character.isLetter(token.charAt(0))) {
             return true;
         } else {
@@ -54,25 +64,29 @@ public class Proceso {
         String aux = String.valueOf((token.charAt(0)));
         for (int i = 1; i < token.length(); i++) {
             if (esNumero(token.charAt(i))) {
-                aux = aux+String.valueOf((token.charAt(i)));
+                aux = aux + String.valueOf((token.charAt(i)));
             }
             if (esLetra(token.charAt(i))) {
-                aux = aux+String.valueOf((token.charAt(i)));
+                aux = aux + String.valueOf((token.charAt(i)));
             }
         }
         if (token.equals(aux)) {
             enlistar(token, Identificador.IDENTIFICADOR);
-        }else{
+        } else {
             enlistar(token, Identificador.ERROR);
         }
     }
-    public void enlistar(String token, Identificador valor){
-        switch(valor){
+
+    public void enlistar(String token, Identificador valor) {
+        switch (valor) {
             case IDENTIFICADOR:
-                this.areaLista.append("\n---"+Identificador.IDENTIFICADOR.getForma()+ "   "  + token);
+                this.areaLista.append("\n---" + Identificador.IDENTIFICADOR.getForma() + "   " + token);
+                break;
+            case ERROR:
+                this.areaLista.append("\n---" + Identificador.ERROR.getForma() + "   " + token);
                 break;
         }
-        
+
     }
 
     public boolean esNumero(char caracter) {
@@ -82,6 +96,7 @@ public class Proceso {
             return false;
         }
     }
+
     public boolean esLetra(char caracter) {
         if (Character.isLetter(caracter)) {
             return true;

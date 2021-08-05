@@ -5,15 +5,15 @@
  */
 package com.practica1.UI;
 
+import com.practica1.proceso.Proceso;
+
 /**
  *
  * @author elvis_agui
  */
 public class Ventana extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Ventana
-     */
+    private Proceso verificar;
     public Ventana() {
         initComponents();
     }
@@ -34,7 +34,7 @@ public class Ventana extends javax.swing.JFrame {
         CadenajTextArea = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        CadenajTextArea1 = new javax.swing.JTextArea();
+        areaListjTextArea = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -46,6 +46,11 @@ public class Ventana extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
         jButton1.setText("Verificar");
         jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setBackground(new java.awt.Color(0, 153, 0));
         jLabel1.setFont(new java.awt.Font("Droid Naskh Shift Alt", 1, 18)); // NOI18N
@@ -65,11 +70,11 @@ public class Ventana extends javax.swing.JFrame {
         jLabel3.setText("Programa para identificar tokens");
         jLabel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        CadenajTextArea1.setColumns(20);
-        CadenajTextArea1.setFont(new java.awt.Font("Inconsolata Black", 0, 18)); // NOI18N
-        CadenajTextArea1.setForeground(new java.awt.Color(0, 0, 0));
-        CadenajTextArea1.setRows(5);
-        jScrollPane2.setViewportView(CadenajTextArea1);
+        areaListjTextArea.setColumns(20);
+        areaListjTextArea.setFont(new java.awt.Font("Inconsolata Black", 0, 18)); // NOI18N
+        areaListjTextArea.setForeground(new java.awt.Color(0, 0, 0));
+        areaListjTextArea.setRows(5);
+        jScrollPane2.setViewportView(areaListjTextArea);
 
         jLabel2.setBackground(new java.awt.Color(0, 153, 0));
         jLabel2.setFont(new java.awt.Font("Droid Naskh Shift Alt", 1, 18)); // NOI18N
@@ -140,12 +145,18 @@ public class Ventana extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        areaListjTextArea.setText("");
+        verificar = new Proceso(CadenajTextArea, areaListjTextArea);
+        verificar.identificar();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea CadenajTextArea;
-    private javax.swing.JTextArea CadenajTextArea1;
     private javax.swing.JPanel FondojPanel;
+    private javax.swing.JTextArea areaListjTextArea;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
