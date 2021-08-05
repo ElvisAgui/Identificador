@@ -10,7 +10,6 @@ import javax.swing.JTextArea;
 public class Proceso {
 
     private JTextArea cadena;
-    private char caracter;
     private String token;
     private int temporal = 0;
     private JTextArea areaLista;
@@ -24,11 +23,16 @@ public class Proceso {
         try {
             do {
                 this.token = token();
-                if (esIdentificador(token)) {
-                    verificadorID(token);
-                } else {
-                    enlistar(token, Identificador.ERROR);
+                if (esLetra(this.token.charAt(0))) {
+                    verificadorID(this.token);
+                }else if (esNumero(this.token.charAt(0))) {
+                    
                 }
+ 
+                
+                /*else {
+                    enlistar(token, Identificador.ERROR);
+                }*/
 
             } while (temporal != (cadena.getText().length() - 1));
         } catch (Exception e) {
@@ -39,13 +43,19 @@ public class Proceso {
     public String token() {
         String token = "";
         for (int i = temporal; i < cadena.getText().length(); i++) {
-            if (Character.compare(cadena.getText().charAt(i), (Identificador.ESPACIO.getForma().charAt(0))) == 0) {
+            if (Character.compare(cadena.getText().charAt(i), (Identificador.SALTO.getForma().charAt(0))) == 0) {
                 this.temporal++;
                 break;
             } else {
-                token = token + cadena.getText().charAt(i);
-                this.temporal++;
+                if (Character.compare(cadena.getText().charAt(i), (Identificador.ESPACIO.getForma().charAt(0))) == 0) {
+                    this.temporal++;
+                    break;
+                } else {
+                    token = token + cadena.getText().charAt(i);
+                    this.temporal++;
+                }
             }
+
         }
         return token;
     }
@@ -59,6 +69,8 @@ public class Proceso {
         }
 
     }
+    
+    
 
     public void verificadorID(String token) {
         String aux = String.valueOf((token.charAt(0)));
@@ -75,6 +87,10 @@ public class Proceso {
         } else {
             enlistar(token, Identificador.ERROR);
         }
+    }
+    
+    public void verificadorNumero(String token){
+        
     }
 
     public void enlistar(String token, Identificador valor) {

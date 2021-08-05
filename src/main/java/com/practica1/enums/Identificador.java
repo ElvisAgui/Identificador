@@ -14,6 +14,7 @@ public enum Identificador {
     PUNTO_COMA("Simbolo ';'"),
     COMA("Simbolo ','"),
     ERROR("Error"),
+    SALTO("\n"),
     ESPACIO(" ");
 
     public String getForma() {
