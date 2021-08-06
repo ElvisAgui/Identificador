@@ -84,12 +84,11 @@ public class Proceso {
             if (esNumero(token.charAt(i))) {
                 aux = aux + String.valueOf((token.charAt(i)));
             }
-            if (token.equals(aux)) {
-                enlistar(token, Identificador.ENTERO);
-            } else {
-                enlistar(token, Identificador.ERROR);
-            }
-
+        }
+        if (token.equals(aux)) {
+            enlistar(token, Identificador.ENTERO);
+        } else {
+            enlistar(token, Identificador.ERROR);
         }
     }
 
@@ -102,12 +101,11 @@ public class Proceso {
             if (esNumero(token.charAt(i))) {
                 aux = aux + String.valueOf((token.charAt(i)));
             }
-            if (token.equals(aux)) {
-                enlistar(token, Identificador.DECIMAL);
-            } else {
-                enlistar(token, Identificador.ERROR);
-            }
-
+        }
+        if (token.equals(aux)) {
+            enlistar(token, Identificador.DECIMAL);
+        } else {
+            enlistar(token, Identificador.ERROR);
         }
     }
 
@@ -133,6 +131,21 @@ public class Proceso {
             case ERROR:
                 this.areaLista.append("\n---" + Identificador.ERROR.getForma() + "   " + token);
                 break;
+            case ENTERO:
+                this.areaLista.append("\n---" + Identificador.ENTERO.getForma() + "   " + token);
+                break;
+            case DECIMAL:
+                this.areaLista.append("\n---" + Identificador.DECIMAL.getForma() + "   " + token);
+                break;
+            case COMA:
+                this.areaLista.append("\n---" + Identificador.COMA.getForma() + "   " + token);
+                break;
+            case CORCHETES:
+                this.areaLista.append("\n---" + Identificador.CORCHETES.getForma() + "   " + token);
+                break;
+            case LLAVES:
+                this.areaLista.append("\n---" + Identificador.DECIMAL.getForma() + "   " + token);
+                break;
         }
 
     }
@@ -140,6 +153,7 @@ public class Proceso {
     public boolean esNumero(char caracter) {
         if (Character.isDigit(caracter)) {
             return true;
+
         } else {
             return false;
         }
