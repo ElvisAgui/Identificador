@@ -25,16 +25,13 @@ public class Proceso {
                 this.token = token();
                 if (esLetra(this.token.charAt(0))) {
                     verificadorID(this.token);
-                }
-                if (esNumero(this.token.charAt(0)) && !unicoPunto(this.token)) {
+                } else if (esNumero(this.token.charAt(0)) && !unicoPunto(this.token)) {
                     verificadorNumero(this.token);
-                }
-                if (esNumero(this.token.charAt(0)) && unicoPunto(this.token)) {
+                } else if (esNumero(this.token.charAt(0)) && unicoPunto(this.token)) {
                     verificadorDecimal(this.token);
+                } else {
+                    verificadoSimbolos(token);
                 }
-                /*else {
-                    enlistar(token, Identificador.ERROR);
-                }*/
             } while (temporal != (cadena.getText().length() - 1));
         } catch (Exception e) {
         }
@@ -102,11 +99,27 @@ public class Proceso {
                 aux = aux + String.valueOf((token.charAt(i)));
             }
         }
-        if (token.equals(aux)) {
+        if (token.equals(aux) && !(Character.compare(cadena.getText().charAt(token.length() - 1), (Identificador.PUNTO.getForma().charAt(0))) == 0)) {
             enlistar(token, Identificador.DECIMAL);
         } else {
             enlistar(token, Identificador.ERROR);
         }
+
+    }
+
+    public void verificadoSimbolos(String token) {
+        if (Character.compare(token.charAt(0), '[') == 0 || Character.compare(token.charAt(0), ']') == 0) {
+            enlistar(token, Identificador.CORCHETES);
+        } else if (Character.compare(token.charAt(0), '{') == 0 || Character.compare(token.charAt(0), '}') == 0) {
+            enlistar(token, Identificador.LLAVES);
+        } else if (token.equalsIgnoreCase(";")) {
+            enlistar(token, Identificador.PUNTO_COMA);
+        } else if (Character.compare(token.charAt(0), ',') == 0) {
+            enlistar(token, Identificador.PUNTO);
+        } else {
+            enlistar(token, Identificador.ERROR);
+        }
+
     }
 
     public boolean unicoPunto(String token) {
@@ -144,7 +157,7 @@ public class Proceso {
                 this.areaLista.append("\n---" + Identificador.CORCHETES.getForma() + "   " + token);
                 break;
             case LLAVES:
-                this.areaLista.append("\n---" + Identificador.DECIMAL.getForma() + "   " + token);
+                this.areaLista.append("\n---" + Identificador.LLAVES.getForma() + "   " + token);
                 break;
         }
 
