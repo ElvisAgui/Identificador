@@ -92,14 +92,14 @@ public class Proceso {
     public void verificadorDecimal(String token) {
         String aux = String.valueOf((token.charAt(0)));
         for (int i = 1; i < token.length(); i++) {
-            if (Character.compare(cadena.getText().charAt(i), (Identificador.PUNTO.getForma().charAt(0))) == 0) {
+            if (Character.compare(token.charAt(i), (Identificador.PUNTO.getForma().charAt(0))) == 0) {
                 aux = aux + String.valueOf((token.charAt(i)));
             }
             if (esNumero(token.charAt(i))) {
                 aux = aux + String.valueOf((token.charAt(i)));
             }
         }
-        if (token.equals(aux) && !(Character.compare(cadena.getText().charAt(token.length() - 1), (Identificador.PUNTO.getForma().charAt(0))) == 0)) {
+        if (token.equals(aux) && !(Character.compare(token.charAt(token.length() - 1), (Identificador.PUNTO.getForma().charAt(0))) == 0)) {
             enlistar(token, Identificador.DECIMAL);
         } else {
             enlistar(token, Identificador.ERROR);
@@ -108,7 +108,7 @@ public class Proceso {
     }
 
     public void verificadoSimbolos(String token) {
-        if (Character.compare(token.charAt(0), '[') == 0 || Character.compare(token.charAt(0), ']') == 0) {
+        if (token.charAt(0) == '[' || token.charAt(0) == ']') {
             enlistar(token, Identificador.CORCHETES);
         } else if (Character.compare(token.charAt(0), '{') == 0 || Character.compare(token.charAt(0), '}') == 0) {
             enlistar(token, Identificador.LLAVES);
@@ -125,7 +125,7 @@ public class Proceso {
     public boolean unicoPunto(String token) {
         int contador = 0;
         for (int i = 1; i < token.length(); i++) {
-            if (Character.compare(cadena.getText().charAt(i), (Identificador.PUNTO.getForma().charAt(0))) == 0) {
+            if (Character.compare(token.charAt(i), (Identificador.PUNTO.getForma().charAt(0))) == 0) {
                 contador++;
             }
         }
